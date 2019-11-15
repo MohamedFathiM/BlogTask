@@ -117,8 +117,11 @@ class DashboardController extends Controller
         if(request('image')){
             $image_path = public_path() . '/img/post_img/'.$post->image;  
             if(file_exists($image_path)) {
+                $request->image  = $this->image(request('image'));
                 @unlink($image_path);
             }
+        }else{
+            $request -> image = $post->image;
         }
 
         $post->update([
@@ -126,8 +129,9 @@ class DashboardController extends Controller
             'breif' => request('breif'),
             'body' => request('body'),
             'user_id' =>request('user_id'),
-            'image' => $this->image(request('image'))
+            'image' => $request->image,
         ]);
+        
 
         return redirect(route('posts.index'));
     }
