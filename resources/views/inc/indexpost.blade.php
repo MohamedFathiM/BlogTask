@@ -28,7 +28,7 @@
                 </div>
               </div>
             </div>
-            <div class="image col-lg-5"><img src="{{ $post->image }}" alt="..."></div>
+            <div class="image col-lg-5"><img src="{{ asset('img/post_img') . '/' . $post->image }}" alt="..."></div>
           </div>
          
           

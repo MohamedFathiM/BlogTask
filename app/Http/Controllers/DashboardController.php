@@ -90,7 +90,11 @@ class DashboardController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        return view('dash.posts.edit',compact('post'));
+        if(\Auth::id() == $post->user_id){
+            return view('dash.posts.edit',compact('post'));
+        }else{
+            return back();
+        }
     }
 
     /**
@@ -136,6 +140,10 @@ class DashboardController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
+            $post = Post::findOrFail($id);
+            $post ->delete() ; 
+            return back();
+        
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-<section style="background: url(img/hero.jpg); background-size: cover; background-position: center center" class="hero">
+<section style="background: url({{asset('img/hero.jpg')}}); background-size: cover; background-position: center center" class="hero">
     <div class="container">
       <div class="row">
         <div class="col-lg-7">

@@ -4,8 +4,8 @@
         <!-- Toggle Button-->
         <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
       </div>
-      @if(\Auth::check() xor Request::is('posts','posts/*'))
-         <a href="posts" class="btn btn-info ml-5" style='display:@if(Request::is('post/*')) none @else block @endif'>Control Your Posts</a>
+      @if(\Auth::check() xor Request::is('posts'))
+    <a href="{{route('posts.index')}}" class="btn btn-info ml-5" style='display:@if(Request::is('post/*')) none @else block @endif'>Control Your Posts</a>
       @else
     <a href="{{route('posts.create')}}" class="btn btn-success" > Add New Post </a>
       @endif

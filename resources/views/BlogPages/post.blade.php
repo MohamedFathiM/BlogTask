@@ -10,7 +10,7 @@
                   {{------------Post Details ---------------}}
                   
 <div class="post-single">
-    <div class="post-thumbnail"><img src="{{$post->image}}" alt="..." class="img-fluid"></div>
+    <div class="post-thumbnail"><img src="{{asset('img/post_img').'/'.$post->image}}" alt="..." class="img-fluid"></div>
             <div class="post-details">
             
               {{-----------post meta data ------------}}
@@ -24,6 +24,21 @@
                 </div>
               </div>
               {{----------content of post-----------}}
+              
+              @if(\Auth::check() && $post->user_id === \Auth::id())
+              <hr><br>
+              <h3>Control You Post</h3>
+                <hr>
+                <div class="d-flex justify-items-center">
+                  <a href="{{route('posts.edit',$post->id)}}" class="btn btn-primary"> Edit </a>
+                          &nbsp;
+                        <form method="POST" action="{{route('posts.destroy' ,[$post->id])}}">
+                            {{ @csrf_field() }}
+                            {{ method_field('DELETE') }}
+                              <button   onclick="return confirm('Are you sure? Delete Post and its Comments')" type="submit" class="btn btn-danger">Delete</button>
+                        </form>  
+                      </div>
+              @endif
               <div class="post-body">
               <p class="lead">{{$post->breif}}</p>
                 <p>{{$post->body}}</p>

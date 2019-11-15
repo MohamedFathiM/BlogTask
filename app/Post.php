@@ -7,6 +7,17 @@ use App\Post;
 
 class Post extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($post) {
+            $post->comments()->delete();
+        // ...
+         });
+
+    }
+
     protected $fillable = [
         'title','breif','body','image','user_id'
     ];

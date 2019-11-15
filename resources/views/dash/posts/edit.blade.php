@@ -19,7 +19,7 @@
                 <label for="content">Content</label>
                <textarea class="form-control" name="body" placeholder="Enter Content" rows="6">{{$post->body}}</textarea>
         </div>
-        <img src="{{$post->image}}" width="300" height="300">
+        <img src="{{asset('img/post_img').'/'.$post->image}}" width="300" height="300">
         <div class="form-group">
                 <input type="file" class="form-control-file" name="image" id="image">
         </div>
