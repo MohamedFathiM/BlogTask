@@ -5,10 +5,12 @@
         <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
       </div>
       @if(\Auth::check() xor Request::is('posts','posts/*'))
-         <a href="posts" class="btn btn-info ml-5">Control Your Posts</a>
+         <a href="posts" class="btn btn-info ml-5" style='display:@if(Request::is('post/*')) none @else block @endif'>Control Your Posts</a>
       @else
-      <a href="posts/create" class="btn btn-success"> Add New Post </a>
+    <a href="{{route('posts.create')}}" class="btn btn-success" > Add New Post </a>
       @endif
+
+      
       <!-- Navbar Menu -->
       <div id="navbarcollapse" class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
@@ -16,7 +18,7 @@
            
                 <li class="nav-item"><a href="/" class="nav-link {{ Request::is('/') ? 'active' :''}} ">Home</a>
                 </li>
-                    @if(Request::is('posts','posts/*'))
+                    @if(Request::is('posts','posts/*','post/*'))
                         @else
                         <li class="nav-item"><a href="blog" class="nav-link {{ Request::is('blog') ? 'active' :'' }}">Blog</a>
                         </li>

@@ -7,7 +7,18 @@ use App\Post;
 
 class DashboardController extends Controller
 {
-   
+
+    //save image 
+    public function image($file){
+            
+        $extention = $file->getClientOriginalExtension();
+        $sha1 = sha1($file->getClientOriginalName());
+        $filename  = time().'_'.$sha1.'.'.$extention;
+        $file->move('img/post_img/',$filename);
+        return $filename;
+}
+
+
     /**
      * Display a listing of the resource.
      *
@@ -48,9 +59,15 @@ class DashboardController extends Controller
             'image' => 'required|image|mimes:png,jpg,jpeg,gif,bmp',
         ]);
         $post = new Post ; 
-        $post-> create($request->all());
+        $post-> create([
+            'title' => request('title'),
+            'breif' => request('breif'),
+            'body' => request('body'),
+            'user_id' =>request('user_id'),
+            'image' => $this->image(request('image'))
+        ]);
 
-        return back();
+        return back()->with('message','sucessfully Added');
     }
 
     /**
@@ -85,7 +102,30 @@ class DashboardController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $request -> validate([
+            'title' =>'required',
+            'breif' => 'required|max:255',
+            'body' => 'required',
+            'image' => 'image|mimes:png,jpg,jpeg,gif,bmp',
+        ]);
+            //delete the current image if request has image
+        if(request('image')){
+            $image_path = public_path() . '/img/post_img/'.$post->image;  
+            if(file_exists($image_path)) {
+                @unlink($image_path);
+            }
+        }
+
+        $post->update([
+            'title' => request('title'),
+            'breif' => request('breif'),
+            'body' => request('body'),
+            'user_id' =>request('user_id'),
+            'image' => $this->image(request('image'))
+        ]);
+
+        return redirect(route('posts.index'));
     }
 
     /**

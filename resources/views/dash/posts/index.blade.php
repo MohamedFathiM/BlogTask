@@ -19,9 +19,9 @@
                     <td style="width:500px;text-align:justify;">{{$post->breif}}</td>
                     <td><img src="{{$post->image}}" width=50 height=50></td>
                     <td class="d-flex">
-                        <a href="posts/{{$post->id}}/edit" class="btn btn-primary"> Edit </a>
+                    <a href="{{route('posts.edit',$post->id)}}" class="btn btn-primary"> Edit </a>
                             &nbsp;
-                        <a href="" class="btn btn-danger"> Delete </a> 
+                        <a href="{{route('posts.destroy',$post->id)}}" class="btn btn-danger"> Delete </a> 
                     </td>
                 </tr>
                 

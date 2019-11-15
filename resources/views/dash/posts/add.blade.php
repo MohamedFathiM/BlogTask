@@ -7,8 +7,8 @@
     @csrf 
             <input type="hidden" name="user_id" value="{{Auth::id()}}">
         <div class="form-group">
-          <label for="title">Email address</label>
-          <input type="Title" class="form-control" id="title" name="title" value="{{old('title')}}" placeholder="Enter Title">
+          <label for="title">Title</label>
+          <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}" placeholder="Enter Title">
         </div>
         <div class="form-group">
           <label for="brief">Breif</label>
